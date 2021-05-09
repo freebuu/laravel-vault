@@ -2,10 +2,10 @@
 
 namespace TempNamespace\LaravelVault\Commands;
 
-use Dotenv\Dotenv;
-use Exception;
 use Illuminate\Console\Command;
 use TempNamespace\LaravelVault\Contracts\Variables;
+use TempNamespace\LaravelVault\EnvFileService;
+use TempNamespace\LaravelVault\Exceptions\EnvFileException;
 use TempNamespace\LaravelVault\LaravelVault;
 
 class GetSecrets extends Command
@@ -15,13 +15,20 @@ class GetSecrets extends Command
         {connection? : Set Vault connection from config}
         {--stdin : When present, command will be wait JSON config from stdin} 
         {--b64 : Work only with --stdin - when present, config must be base64 encoded}
-        {--output=console : Where the vars will ne output. Possible: console, nextEnv}
+        {--output=console : Where the vars will ne output. Possible: console, nextEnv, currentEnv}
     ';
 
     protected $description = 'Get env from Vault';
 
-    public function handle(LaravelVault $vault): int
+    /** @var LaravelVault */
+    protected $vault;
+    /** @var EnvFileService */
+    protected $envFileService;
+
+    public function handle(LaravelVault $vault, EnvFileService $envFileService): int
     {
+        $this->vault = $vault;
+        $this->envFileService = $envFileService;
         if ($this->option('stdin')) {
             $input = $this->secret('Pass config in JSON');
             $b64   = (bool) $this->option('b64');
@@ -31,7 +38,7 @@ class GetSecrets extends Command
         }
         $connection = $this->argument('connection');
         //TODO отображение получения конфигов по путям и контроль ошибок
-        $vars = $vault->get($connection);
+        $vars = $this->vault->get($connection);
         if($vars->isEmpty()){
             $this->error('Vars is empty, possible errors');
             return 1;
@@ -91,40 +98,25 @@ class GetSecrets extends Command
         return true;
     }
 
-    //TODO move to dedicated service
     private function nextEnvFormat(Variables $variables): bool
     {
-        $name = $this->getLaravel()->environmentFile().'.next';
-        $patch = $this->getLaravel()->environmentPath();
-        $nextFile = $patch.DIRECTORY_SEPARATOR.$name;
-        $content = '';
-        $vars = [];
-        foreach ($variables->toArray() as $key => $value){
-            $key = strtoupper($key);
-            $vars[] = $key;
-            $content .= strtoupper($key).'='.$value."\n";
-        }
-        if(! is_file($nextFile) and ! touch($nextFile)){
-            $this->error('Cannot create ' . $nextFile);
+        try {
+            $this->envFileService->saveNextEnv($variables);
+            return true;
+        } catch (EnvFileException $e) {
+            $this->error($e->getMessage());
             return false;
         }
-        if(! is_writable($nextFile)){
-            $this->error('File is not writeable ' . $nextFile);
+    }
+
+    private function currentEnvFormat(Variables $variables): bool
+    {
+        try {
+            $this->envFileService->saveCurrentEnv($variables);
+            return true;
+        } catch (EnvFileException $e) {
+            $this->error($e->getMessage());
             return false;
         }
-        if(! file_put_contents($nextFile, $content)){
-            $this->error('Cannot write to file ' . $nextFile);
-            return false;
-        }
-        try{
-            $dotenv = Dotenv::create($patch, $name);
-            $dotenv->load();
-            $dotenv->required($vars);
-        }catch (Exception $exception){
-            $this->error("Dotenv file {$nextFile} not write correctly");
-            unlink($nextFile);
-            return false;
-        }
-        return true;
     }
 }

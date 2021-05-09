@@ -7,6 +7,7 @@ use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Illuminate\Support\ServiceProvider;
 use TempNamespace\LaravelVault\Commands\GetSecrets;
+use TempNamespace\LaravelVault\Commands\MoveEnv;
 use TempNamespace\LaravelVault\Drivers\ClientFactory;
 use TempNamespace\LaravelVault\Drivers\HashiCorpVault;
 
@@ -29,6 +30,10 @@ class LaravelVaultServiceProvider extends ServiceProvider
             return new LaravelVault($app);
         });
 
+        $this->app->singleton(EnvFileService::class, function (){
+            return new EnvFileService();
+        });
+
         $this->app->alias(LaravelVault::class, 'vault');
 
         $this->registerCommands();
@@ -38,7 +43,8 @@ class LaravelVaultServiceProvider extends ServiceProvider
     private function registerCommands()
     {
         $this->commands([
-            GetSecrets::class
+            GetSecrets::class,
+            MoveEnv::class,
         ]);
     }
 

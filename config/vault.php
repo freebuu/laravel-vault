@@ -1,20 +1,20 @@
 <?php
 
 return [
-    //пути, по которым драйвер отдает переменные
-    'patches' => [
-        //
+    'vars' => [
+        //пути, по которым драйвер отдает переменные
+        'patches' => [
+            '/secret/{app}/{env}',
+            '/secret/{app}/common',
+        ],
+        //в пути можно подставлять переменны
+        // /secret/{app}/{env}
+        // /secret/{app}/common
+        'patch_variables' => [
+            'env' => config('app.env'),
+            'app' => config('app.name')
+        ],
     ],
-    //в пути можно подставлять переменны
-    // /secret/{app}/{env}
-    // /secret/{app}/common
-    //предзаложены
-    //env - app->env()
-    //app - app->name()
-    'patch_variables' => [
-
-    ],
-
     'default_connection' => env('VAULT_DEFAULT_CONNECTION', 'vault'),
     'connections' => [
         'vault' => [

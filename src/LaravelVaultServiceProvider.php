@@ -25,9 +25,11 @@ class LaravelVaultServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/vault.php', 'vault');
 
-        $this->app->singleton('vault', function ($app){
+        $this->app->singleton(LaravelVault::class, function ($app){
             return new LaravelVault($app);
         });
+
+        $this->app->alias(LaravelVault::class, 'vault');
 
         $this->registerCommands();
         $this->registerDriver();
@@ -51,7 +53,7 @@ class LaravelVaultServiceProvider extends ServiceProvider
         });
 
         $this->app['vault']->extend('hashicorp_vault_kv_v1', function ($app, $name, $config){
-            $client = $app->make(ClientFactory::class)->create($config['host'], $config);
+            $client = $app->make(ClientFactory::class)->create($config['host'], $config['port'], $config);
             return new HashiCorpVault($client);
         });
     }

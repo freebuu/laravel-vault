@@ -40,10 +40,10 @@ class ClientFactory
     }
 
 
-    public function create(string $host, array $config): BaseClient
+    public function create(string $host, string $port, array $config): BaseClient
     {
         $client = new Client(
-            new Uri($host),
+            new Uri($host.':'.$port),
             $this->client,
             $this->requestFactory,
             $this->streamFactory

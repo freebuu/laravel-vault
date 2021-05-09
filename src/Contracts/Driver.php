@@ -1,6 +1,6 @@
 <?php
 
-namespace TempNamespace\LaravelVault\Contracts;
+namespace YaSdelyal\LaravelVault\Contracts;
 
 interface Driver
 {

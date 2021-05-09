@@ -1,12 +1,12 @@
 <?php
 
-namespace TempNamespace\LaravelVault\Commands;
+namespace YaSdelyal\LaravelVault\Commands;
 
 use Illuminate\Console\Command;
-use TempNamespace\LaravelVault\Contracts\Variables;
-use TempNamespace\LaravelVault\EnvFileService;
-use TempNamespace\LaravelVault\Exceptions\EnvFileException;
-use TempNamespace\LaravelVault\LaravelVault;
+use YaSdelyal\LaravelVault\Contracts\Variables;
+use YaSdelyal\LaravelVault\EnvFileService;
+use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
+use YaSdelyal\LaravelVault\LaravelVault;
 
 class GetSecrets extends Command
 {

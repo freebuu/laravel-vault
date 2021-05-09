@@ -1,12 +1,12 @@
 <?php
 
 
-namespace TempNamespace\LaravelVault;
+namespace YaSdelyal\LaravelVault;
 
 use Dotenv\Dotenv;
 use Exception;
-use TempNamespace\LaravelVault\Contracts\Variables;
-use TempNamespace\LaravelVault\Exceptions\EnvFileException;
+use YaSdelyal\LaravelVault\Contracts\Variables;
+use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
 
 class EnvFileService
 {

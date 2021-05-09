@@ -1,11 +1,10 @@
 <?php
 
-namespace TempNamespace\LaravelVault\Tests\Unit;
+namespace YaSdelyal\LaravelVault\Tests\Unit;
 
-use Illuminate\Support\Facades\Artisan;
-use TempNamespace\LaravelVault\Drivers\HashiCorpVault;
-use TempNamespace\LaravelVault\LaravelVault;
-use TempNamespace\LaravelVault\Tests\TestCase;
+use YaSdelyal\LaravelVault\Drivers\HashiCorpVault;
+use YaSdelyal\LaravelVault\LaravelVault;
+use YaSdelyal\LaravelVault\Tests\TestCase;
 
 class LaravelVaultTest extends TestCase
 {

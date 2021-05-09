@@ -1,8 +1,8 @@
 <?php
 
-namespace TempNamespace\LaravelVault\Tests;
+namespace YaSdelyal\LaravelVault\Tests;
 
-use TempNamespace\LaravelVault\LaravelVaultServiceProvider;
+use YaSdelyal\LaravelVault\LaravelVaultServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

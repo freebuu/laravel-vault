@@ -2,9 +2,9 @@
 
 
 use Illuminate\Foundation\Testing\WithFaker;
-use TempNamespace\LaravelVault\LaravelVault;
-use TempNamespace\LaravelVault\Models\BasicVariables;
-use TempNamespace\LaravelVault\Tests\TestCase;
+use YaSdelyal\LaravelVault\LaravelVault;
+use YaSdelyal\LaravelVault\Models\BasicVariables;
+use YaSdelyal\LaravelVault\Tests\TestCase;
 
 class GetSecretsTest extends TestCase
 {

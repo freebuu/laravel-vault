@@ -1,15 +1,15 @@
 <?php
 
-namespace TempNamespace\LaravelVault;
+namespace YaSdelyal\LaravelVault;
 
 use GuzzleHttp\Client;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Illuminate\Support\ServiceProvider;
-use TempNamespace\LaravelVault\Commands\GetSecrets;
-use TempNamespace\LaravelVault\Commands\MoveEnv;
-use TempNamespace\LaravelVault\Drivers\ClientFactory;
-use TempNamespace\LaravelVault\Drivers\HashiCorpVault;
+use YaSdelyal\LaravelVault\Commands\GetSecrets;
+use YaSdelyal\LaravelVault\Commands\MoveEnv;
+use YaSdelyal\LaravelVault\Drivers\ClientFactory;
+use YaSdelyal\LaravelVault\Drivers\HashiCorpVault;
 
 class LaravelVaultServiceProvider extends ServiceProvider
 {

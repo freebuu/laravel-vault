@@ -1,8 +1,10 @@
 <?php
 
-namespace TempNamespace\LaravelVault\Exceptions;
+namespace YaSdelyal\LaravelVault\Exceptions;
 
-class EnvFileException extends \Exception
+use Exception;
+
+class EnvFileException extends Exception
 {
 
 }

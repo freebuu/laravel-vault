@@ -1,12 +1,12 @@
 <?php
 
 
-namespace TempNamespace\LaravelVault\Drivers;
+namespace YaSdelyal\LaravelVault\Drivers;
 
 
-use TempNamespace\LaravelVault\Models\BasicVariables;
-use TempNamespace\LaravelVault\Contracts\Driver;
-use TempNamespace\LaravelVault\Contracts\Variables;
+use YaSdelyal\LaravelVault\Models\BasicVariables;
+use YaSdelyal\LaravelVault\Contracts\Driver;
+use YaSdelyal\LaravelVault\Contracts\Variables;
 use Vault\Client;
 
 class HashiCorpVault implements Driver

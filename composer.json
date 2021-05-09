@@ -1,8 +1,11 @@
 {
-    "name": "2618094/php-laravel-vault",
+    "name": "yasdelyal/php-laravel-vault",
     "description": "Laravel package for HashiCorp Vault",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel", "Vault", "HashiCorp"
+    ],
     "authors": [
         {
             "name": "Maksim Mikhailov",
@@ -24,18 +27,18 @@
     },
     "autoload": {
         "psr-4": {
-            "TempNamespace\\LaravelVault\\": "src/"
+            "YaSdelyal\\LaravelVault\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TempNamespace\\LaravelVault\\Tests\\": "tests/"
+            "YaSdelyal\\LaravelVault\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "TempNamespace\\LaravelVault\\LaravelVaultServiceProvider"
+                "YaSdelyal\\LaravelVault\\LaravelVaultServiceProvider"
             ]
         }
     }

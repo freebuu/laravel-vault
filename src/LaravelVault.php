@@ -1,12 +1,12 @@
 <?php
 
-namespace TempNamespace\LaravelVault;
+namespace YaSdelyal\LaravelVault;
 
 use Closure;
 use Illuminate\Foundation\Application;
 use InvalidArgumentException;
-use TempNamespace\LaravelVault\Contracts\Driver;
-use TempNamespace\LaravelVault\Contracts\Variables;
+use YaSdelyal\LaravelVault\Contracts\Driver;
+use YaSdelyal\LaravelVault\Contracts\Variables;
 
 class LaravelVault
 {

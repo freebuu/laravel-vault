@@ -15,7 +15,7 @@ class GetSecrets extends Command
         {connection? : Set Vault connection from config}
         {--stdin : When present, command will be wait JSON config from stdin} 
         {--b64 : Work only with --stdin - when present, config must be base64 encoded}
-        {--output=console : Where the vars will ne output. Possible: console, nextEnv, currentEnv}
+        {--output=console : Where the vars will be output. Possible: console, nextEnv, currentEnv}
     ';
 
     protected $description = 'Get env from Vault';

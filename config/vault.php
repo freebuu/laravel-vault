@@ -2,14 +2,20 @@
 
 return [
     'vars' => [
-        //пути, по которым драйвер отдает переменные
+        /*
+         * Patches for Driver
+         * Envs from all patches will be merged
+         * Can be used variables like {app} - for this, put it into patch_variables array
+         */
         'patches' => [
             '/secret/{app}/{env}',
             '/secret/{app}/common',
         ],
-        //в пути можно подставлять переменны
-        // /secret/{app}/{env}
-        // /secret/{app}/common
+
+        /*
+         * Variables for patches
+         * They will be substituted at render time
+         */
         'patch_variables' => [
             'env' => config('app.env'),
             'app' => config('app.name')

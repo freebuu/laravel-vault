@@ -2,6 +2,8 @@
 
 namespace TempNamespace\LaravelVault\Commands;
 
+use Dotenv\Dotenv;
+use Exception;
 use Illuminate\Console\Command;
 use TempNamespace\LaravelVault\Contracts\Variables;
 use TempNamespace\LaravelVault\LaravelVault;
@@ -10,10 +12,10 @@ class GetSecrets extends Command
 {
 
     protected $signature = 'vault:get 
-        {connection?}
-        {--stdin} 
-        {--b64}
-        {--output=console}
+        {connection? : Set Vault connection from config}
+        {--stdin : When present, command will be wait JSON config from stdin} 
+        {--b64 : Work only with --stdin - when present, config must be base64 encoded}
+        {--output=console : Where the vars will ne output. Possible: console, nextEnv}
     ';
 
     protected $description = 'Get env from Vault';
@@ -25,11 +27,19 @@ class GetSecrets extends Command
             $b64   = (bool) $this->option('b64');
             if(! $this->setConfigFromStdin($input, $b64)){
                 return 1;
-            };
+            }
         }
         $connection = $this->argument('connection');
-        $variables = $vault->get($connection);
-        $this->makeOutput($variables, $this->option('output'));
+        //TODO отображение получения конфигов по путям и контроль ошибок
+        $vars = $vault->get($connection);
+        if($vars->isEmpty()){
+            $this->error('Vars is empty, possible errors');
+            return 1;
+        }
+
+        if(! $this->makeOutput($vars, $this->option('output'))){
+            return 1;
+        }
         return 0;
     }
 
@@ -58,19 +68,63 @@ class GetSecrets extends Command
         return true;
     }
 
-    private function makeOutput(Variables $variables, string $type)
+    private function makeOutput(Variables $variables, string $format): bool
     {
-        switch ($type):
-            case 'console':
-                $formatted = [];
-                foreach ($variables->toArray() as $key => $value){
-                    $formatted[] = [
-                        'key' => $key,
-                        'value' => $value
-                    ];
-                }
-                $this->table(['Key', 'Value'], $formatted);
-                break;
-        endswitch;
+        $method = $format . 'Format';
+        if(! method_exists($this, $method)){
+            $this->error('Unsupported format ' . $format);
+            return false;
+        }
+        return $this->{$method}($variables);
+    }
+
+    private function consoleFormat(Variables $variables): bool
+    {
+        $formatted = [];
+        foreach ($variables->toArray() as $key => $value){
+            $formatted[] = [
+                'key' => $key,
+                'value' => $value
+            ];
+        }
+        $this->table(['Key', 'Value'], $formatted);
+        return true;
+    }
+
+    //TODO move to dedicated service
+    private function nextEnvFormat(Variables $variables): bool
+    {
+        $name = $this->getLaravel()->environmentFile().'.next';
+        $patch = $this->getLaravel()->environmentPath();
+        $nextFile = $patch.DIRECTORY_SEPARATOR.$name;
+        $content = '';
+        $vars = [];
+        foreach ($variables->toArray() as $key => $value){
+            $key = strtoupper($key);
+            $vars[] = $key;
+            $content .= strtoupper($key).'='.$value."\n";
+        }
+        if(! is_file($nextFile) and ! touch($nextFile)){
+            $this->error('Cannot create ' . $nextFile);
+            return false;
+        }
+        if(! is_writable($nextFile)){
+            $this->error('File is not writeable ' . $nextFile);
+            return false;
+        }
+        if(! file_put_contents($nextFile, $content)){
+            $this->error('Cannot write to file ' . $nextFile);
+            return false;
+        }
+        try{
+            $dotenv = Dotenv::create($patch, $name);
+            $dotenv->load();
+            $dotenv->required($vars);
+        }catch (Exception $exception){
+            $this->error("Dotenv file {$nextFile} not write correctly");
+            unlink($nextFile);
+            return false;
+        }
+        return true;
     }
 }

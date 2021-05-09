@@ -44,6 +44,29 @@ class GetSecretsTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function testEnvNext()
+    {
+        $patch = __DIR__ . '/../../tmp';
+        $file = $this->app->environmentFile().'.next';
+        $nextFile = $patch.DIRECTORY_SEPARATOR.$file;
+        $this->app->useEnvironmentPath($patch);
+
+        $this->vaultMustBeCalled();
+        $this->artisan('vault:get --output=nextEnv')
+            ->assertExitCode(0);
+        $this->assertTrue(is_file($nextFile));
+        unlink($nextFile);
+    }
+
+    public function testEmptyGet()
+    {
+        $this->vars = new BasicVariables([]);
+        $this->vaultMustBeCalled();
+        $this->artisan('vault:get')
+            ->expectsOutput('Vars is empty, possible errors')
+            ->assertExitCode(1);
+    }
+
     public function testWrongJson()
     {
         $this->vaultMustNotBeCalled();

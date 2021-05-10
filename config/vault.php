@@ -6,10 +6,12 @@ return [
          * Patches for Driver
          * Envs from all patches will be merged
          * Can be used variables like {app} - for this, put it into patch_variables array
+         * Examples:
+         * /secret/{app}/{env}
+         * /secret/{app}/common
          */
         'patches' => [
-            '/secret/{app}/{env}',
-            '/secret/{app}/common',
+            //
         ],
 
         /*

@@ -82,13 +82,8 @@ class LaravelVault
         //TODO переделать нормально
         $patches = [];
         $config = $this->app['config']['vault.vars'];
-        $variables = [
-            'env' => $this->app->environment(),
-            'app' => config('app.name')
-        ];
-        $variables = array_merge($variables, $config['patch_variables']);
         foreach ($config['patches'] as $patch){
-            $patches[] = $this->parsePatch($patch, $variables);
+            $patches[] = $this->parsePatch($patch, $config['patch_variables']);
         }
         return $patches;
     }

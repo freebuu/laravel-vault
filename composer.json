@@ -39,7 +39,10 @@
         "laravel": {
             "providers": [
                 "YaSdelyal\\LaravelVault\\LaravelVaultServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Vault": "YaSdelyal\\LaravelVault\\Facades\\Vault"
+            }
         }
     }
 }

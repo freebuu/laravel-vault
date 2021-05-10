@@ -8,6 +8,12 @@ use InvalidArgumentException;
 use YaSdelyal\LaravelVault\Contracts\Driver;
 use YaSdelyal\LaravelVault\Contracts\Variables;
 
+/**
+ * Class LaravelVault
+ * @package YaSdelyal\LaravelVault
+ *
+ */
+
 class LaravelVault
 {
     private $driverCreators = [];

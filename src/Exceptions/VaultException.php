@@ -2,7 +2,9 @@
 
 namespace YaSdelyal\LaravelVault\Exceptions;
 
-class EnvFileException extends VaultException
+use Exception;
+
+class VaultException extends Exception
 {
 
 }

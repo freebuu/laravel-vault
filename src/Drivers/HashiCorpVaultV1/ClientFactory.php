@@ -10,8 +10,9 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Vault\AuthenticationStrategies\AppRoleAuthenticationStrategy;
 use Vault\AuthenticationStrategies\AuthenticationStrategy;
-use Vault\BaseClient;
+use Vault\AuthenticationStrategies\TokenAuthenticationStrategy;
 use Vault\Client;
+use YaSdelyal\LaravelVault\Exceptions\DriveException;
 
 class ClientFactory
 {
@@ -40,7 +41,10 @@ class ClientFactory
     }
 
 
-    public function create(string $host, string $port, array $config): BaseClient
+    /**
+     * @throws DriveException
+     */
+    public function create(string $host, string $port, array $config): Client
     {
         $client = new Client(
             new Uri($host.':'.$port),
@@ -54,10 +58,19 @@ class ClientFactory
         return $client;
     }
 
+    /**
+     * @throws DriveException
+     */
     public function createAuthenticationStrategy(array $config): AuthenticationStrategy
     {
-        //TODO выбор стратегии на основании предоставленных переменных
-        return new AppRoleAuthenticationStrategy($config['role_id'], $config['secret_id'], $config['role_name'] ?? 'approle');
+        //TODO AbstractPathAuthenticationStrategy
+        if(isset($config['role_id']) and ($config['secret_id'])){
+            return new AppRoleAuthenticationStrategy($config['role_id'], $config['secret_id'], $config['role_name'] ?? 'approle');
+        }elseif (isset($config['token'])){
+            return new TokenAuthenticationStrategy($config['token']);
+        }else{
+            throw new DriveException('No supported AuthenticationStrategy');
+        }
     }
 
 }

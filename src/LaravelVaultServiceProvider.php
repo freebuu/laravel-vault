@@ -51,16 +51,13 @@ class LaravelVaultServiceProvider extends ServiceProvider
 
     private function registerDriver()
     {
-        $this->app->bind(ClientFactory::class, function (){
-            return new ClientFactory(
+        Vault::extend('hashicorp_vault_v1', function ($app, $name, $config){
+            $factory = new ClientFactory(
                 new Client(),
                 new RequestFactory(),
                 new StreamFactory()
             );
-        });
-
-        Vault::extend('hashicorp_vault_v1', function ($app, $name, $config){
-            $client = $app->make(ClientFactory::class)->create($config['host'], $config['port'], $config);
+            $client = $factory->create($config['host'], $config['port'], $config);
             return new HashiCorpVault($client);
         });
     }

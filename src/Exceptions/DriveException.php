@@ -1,8 +1,10 @@
 <?php
 
+
 namespace YaSdelyal\LaravelVault\Exceptions;
 
-class EnvFileException extends VaultException
+
+class DriveException extends VaultException
 {
 
 }

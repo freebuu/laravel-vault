@@ -81,6 +81,7 @@ class EnvFileService
         if(! copy($this->nextFile, $this->currentFile)){
             throw new EnvFileException('Cannot move next .env to  ' . $this->currentFile);
         }
+        unlink($this->nextFile);
     }
 
 

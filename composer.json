@@ -13,9 +13,9 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "illuminate/support": "^6|^7|^8",
-        "illuminate/console": "^6|^7|^8",
+        "php": "^7.2.5 || ^8.0",
+        "illuminate/support": "^5.8|^6|^7|^8",
+        "illuminate/console": "^5.8|^6|^7|^8",
         "csharpru/vault-php": "^4.2",
         "guzzlehttp/guzzle": "^7.3",
         "http-interop/http-factory-guzzle": "^1.0"

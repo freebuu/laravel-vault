@@ -20,6 +20,20 @@ return [
             'env' => config('app.env'),
             'app' => config('app.name')
         ],
+        /*
+         * Variables validation before save in .next
+         * By default, it get .env.example from default folder
+         * But this can be overwritten with example_file_patch and example_file_name
+         * strict:
+         * true - received envs must be equal with example (order does not count)
+         * false - received envs must has all keys from example or more
+         */
+        'validation' => [
+            'enabled'       => ENV('VAULT_VARS_VALIDATION_ENABLED', true),
+            'strict'        => ENV('VAULT_VARS_VALIDATION_STRICT', false),
+            'example_file_patch' => ENV('VAULT_VARS_VALIDATION_EXAMPLE_PATCH'),
+            'example_file_name'  => ENV('VAULT_VARS_VALIDATION_EXAMPLE_NAME'),
+        ]
     ],
     'default_connection' => env('VAULT_DEFAULT_CONNECTION', 'vault'),
     'connections' => [

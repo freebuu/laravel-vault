@@ -5,6 +5,7 @@ namespace YaSdelyal\LaravelVault\Tests\Unit;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use YaSdelyal\LaravelVault\EnvFileService;
+use YaSdelyal\LaravelVault\EnvValidator;
 use YaSdelyal\LaravelVault\Models\BasicVariables;
 use YaSdelyal\LaravelVault\Tests\TestCase;
 
@@ -22,9 +23,8 @@ class EnvFileServiceTest extends TestCase
            'var1' => $this->faker->word,
            'var2' => $this->faker->word,
         ]);
-        //TODO work with filesystem from adapter, not direct. Cons: Filesystem::class has not isWritable
-        $this->app->useEnvironmentPath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'tmp']));
-        $this->service = new EnvFileService($this->app);
+        $mockValidator = $this->createMock(EnvValidator::class);
+        $this->service = new EnvFileService($this->app, $mockValidator);
     }
 
     public function tearDown(): void
@@ -42,6 +42,12 @@ class EnvFileServiceTest extends TestCase
         }
     }
 
+    public function testSingleton()
+    {
+        $obj1 = $this->app->make(EnvFileService::class);
+        $obj2 = $this->app->make(EnvFileService::class);
+        $this->assertSame($obj1, $obj2);
+    }
 
     public function testSaveNextEnv()
     {

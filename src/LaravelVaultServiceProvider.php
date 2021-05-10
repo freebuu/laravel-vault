@@ -31,14 +31,22 @@ class LaravelVaultServiceProvider extends ServiceProvider
             return new LaravelVault($app);
         });
 
+        $this->app->singleton(EnvValidator::class, function(){
+            return new EnvValidator(
+                $this->app['config']['vault.vars.validation.example_file_patch'] ?? $this->app->environmentPath(),
+                $this->app['config']['vault.vars.validation.example_file_name'] ?? $this->app->environmentFile() . '.example'
+            );
+        });
+
         $this->app->singleton(EnvFileService::class, function ($app){
-            return new EnvFileService($app);
+            return new EnvFileService($app, $app->get(EnvValidator::class));
         });
 
         $this->app->alias(LaravelVault::class, 'vault');
 
         $this->registerCommands();
         $this->registerDriver();
+        $this->registerValidator();
     }
 
     private function registerCommands()
@@ -60,5 +68,10 @@ class LaravelVaultServiceProvider extends ServiceProvider
             $client = $factory->create($config['host'], $config['port'], $config);
             return new HashiCorpVault($client);
         });
+    }
+
+    public function registerValidator()
+    {
+
     }
 }

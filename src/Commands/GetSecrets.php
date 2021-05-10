@@ -5,7 +5,7 @@ namespace YaSdelyal\LaravelVault\Commands;
 use Illuminate\Console\Command;
 use YaSdelyal\LaravelVault\Contracts\Variables;
 use YaSdelyal\LaravelVault\EnvFileService;
-use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
+use YaSdelyal\LaravelVault\Exceptions\VaultException;
 use YaSdelyal\LaravelVault\LaravelVault;
 
 class GetSecrets extends Command
@@ -104,7 +104,7 @@ class GetSecrets extends Command
             $this->envFileService->saveNextEnv($variables);
             $this->info('Env saved to next');
             return true;
-        } catch (EnvFileException $e) {
+        } catch (VaultException $e) {
             $this->error($e->getMessage());
             return false;
         }
@@ -116,7 +116,7 @@ class GetSecrets extends Command
             $this->envFileService->saveCurrentEnv($variables);
             $this->info('Env saved to current');
             return true;
-        } catch (EnvFileException $e) {
+        } catch (VaultException $e) {
             $this->error($e->getMessage());
             return false;
         }

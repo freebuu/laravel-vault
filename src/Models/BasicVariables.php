@@ -45,6 +45,11 @@ class BasicVariables implements Variables
         return (string) $this->data[$key] ?? null;
     }
 
+    public function has($key): bool
+    {
+        return isset($this->data[$key]);
+    }
+
     public function merge(Variables $variables): Variables
     {
         $this->data = array_merge($this->data, $variables->toArray());

@@ -3,11 +3,10 @@
 
 namespace YaSdelyal\LaravelVault;
 
-use Dotenv\Dotenv;
-use Exception;
 use YaSdelyal\LaravelVault\Contracts\Variables;
 use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
 use Illuminate\Foundation\Application;
+use YaSdelyal\LaravelVault\Exceptions\VaultException;
 
 class EnvFileService
 {
@@ -18,17 +17,19 @@ class EnvFileService
     private $nextFile;
 
     private $backupFile;
+    private $validator;
 
-    public function __construct(Application $app)
+    public function __construct(Application $app, EnvValidator $validator)
     {
         $this->app = $app;
+        $this->validator = $validator;
         $this->currentFile = $this->getEnvFilePatch();
         $this->nextFile = $this->getEnvFilePatch(self::NEXT);
         $this->backupFile = $this->getEnvFilePatch(self::BAK);
     }
 
     /**
-     * @throws EnvFileException
+     * @throws VaultException
      */
     public function saveCurrentEnv(Variables $variables): void
     {
@@ -37,7 +38,7 @@ class EnvFileService
     }
 
     /**
-     * @throws EnvFileException
+     * @throws VaultException
      */
     public function saveNextEnv(Variables $variables): void
     {
@@ -46,12 +47,10 @@ class EnvFileService
             throw new EnvFileException('Cannot write to file ' . $this->nextFile);
         }
         try{
-            $dotenv = Dotenv::create($this->app->environmentPath(), $this->getEnvFileName(self::NEXT));
-            $dotenv->load();
-            $dotenv->required($variables->keys());
-        }catch (Exception $exception){
+            $this->validator->validate($variables);
+        }catch (VaultException $exception){
             unlink($this->nextFile);
-            throw new EnvFileException("Dotenv file {$this->nextFile} not write correctly");
+            throw $exception;
         }
     }
 
@@ -121,7 +120,6 @@ class EnvFileService
         if(! $this->isFile($this->backupFile)){
             throw new EnvFileException('Backup file not created ' . $this->backupFile);
         }
-        //TODO backup validation
         $this->checkOrFail($this->currentFile);
         if(! copy($this->backupFile, $this->currentFile)){
             throw new EnvFileException('Cannot copy backup to .env: ' . $this->currentFile);

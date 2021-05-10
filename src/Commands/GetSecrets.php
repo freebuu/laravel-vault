@@ -79,7 +79,7 @@ class GetSecrets extends Command
     {
         $method = $format . 'Format';
         if(! method_exists($this, $method)){
-            $this->error('Unsupported format ' . $format);
+            $this->error('Unsupported output format' . $format);
             return false;
         }
         return $this->{$method}($variables);
@@ -102,6 +102,7 @@ class GetSecrets extends Command
     {
         try {
             $this->envFileService->saveNextEnv($variables);
+            $this->info('Env saved to next');
             return true;
         } catch (EnvFileException $e) {
             $this->error($e->getMessage());
@@ -113,6 +114,7 @@ class GetSecrets extends Command
     {
         try {
             $this->envFileService->saveCurrentEnv($variables);
+            $this->info('Env saved to current');
             return true;
         } catch (EnvFileException $e) {
             $this->error($e->getMessage());

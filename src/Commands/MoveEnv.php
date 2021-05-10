@@ -20,9 +20,11 @@ class MoveEnv extends Command
     {
         try {
             if($this->option('rollback')){
-                $envFileService->rollback();
+                $envFileService->rollbackFromBackup();
+                $this->info('.env is rollback from backup');
             }else{
                 $envFileService->moveNextEnvToCurrent();
+                $this->info('.env.next moved into current');
             }
             return 0;
         } catch (EnvFileException $e) {

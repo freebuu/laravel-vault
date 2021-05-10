@@ -56,4 +56,13 @@ class BasicVariables implements Variables
         return count($this->data) === 0;
     }
 
+    public function toEnv(): string
+    {
+        $content = '';
+        foreach ($this->data as $key => $value){
+            //TODO maybe formater? or move to service?
+            $content .= $key.'='.$value."\n";
+        }
+        return $content;
+    }
 }

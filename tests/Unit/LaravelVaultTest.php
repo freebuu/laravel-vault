@@ -2,7 +2,7 @@
 
 namespace YaSdelyal\LaravelVault\Tests\Unit;
 
-use YaSdelyal\LaravelVault\Drivers\HashiCorpVault;
+use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\HashiCorpVault;
 use YaSdelyal\LaravelVault\LaravelVault;
 use YaSdelyal\LaravelVault\Tests\TestCase;
 

@@ -8,8 +8,8 @@ use Http\Factory\Guzzle\StreamFactory;
 use Illuminate\Support\ServiceProvider;
 use YaSdelyal\LaravelVault\Commands\GetSecrets;
 use YaSdelyal\LaravelVault\Commands\MoveEnv;
-use YaSdelyal\LaravelVault\Drivers\ClientFactory;
-use YaSdelyal\LaravelVault\Drivers\HashiCorpVault;
+use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\ClientFactory;
+use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\HashiCorpVault;
 use YaSdelyal\LaravelVault\Facades\Vault;
 
 class LaravelVaultServiceProvider extends ServiceProvider
@@ -59,7 +59,7 @@ class LaravelVaultServiceProvider extends ServiceProvider
             );
         });
 
-        Vault::extend('hashicorp_vault_kv_v1', function ($app, $name, $config){
+        Vault::extend('hashicorp_vault_v1', function ($app, $name, $config){
             $client = $app->make(ClientFactory::class)->create($config['host'], $config['port'], $config);
             return new HashiCorpVault($client);
         });

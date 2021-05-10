@@ -2,6 +2,7 @@
 
 
 use Illuminate\Foundation\Testing\WithFaker;
+use YaSdelyal\LaravelVault\EnvFileService;
 use YaSdelyal\LaravelVault\LaravelVault;
 use YaSdelyal\LaravelVault\Models\BasicVariables;
 use YaSdelyal\LaravelVault\Tests\TestCase;
@@ -12,6 +13,7 @@ class GetSecretsTest extends TestCase
 
     protected $vars;
     protected $vault;
+    protected $envService;
     protected $startedConfig;
 
     public function setUp(): void
@@ -22,6 +24,7 @@ class GetSecretsTest extends TestCase
             'test_var_2' => 'test_value_2',
         ]);
         $this->vault = $this->mock(LaravelVault::class);
+        $this->envService = $this->mock(EnvFileService::class);
         $this->startedConfig = $this->app['config']['vault'];
     }
 
@@ -44,18 +47,22 @@ class GetSecretsTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function testEnvNext()
+    public function testNextEnv()
     {
-        $patch = __DIR__ . '/../../tmp';
-        $file = $this->app->environmentFile().'.next';
-        $nextFile = $patch.DIRECTORY_SEPARATOR.$file;
-        $this->app->useEnvironmentPath($patch);
-
+        $this->envService->expects('saveNextEnv')->once();
         $this->vaultMustBeCalled();
+
         $this->artisan('vault:get --output=nextEnv')
             ->assertExitCode(0);
-        $this->assertTrue(is_file($nextFile));
-        unlink($nextFile);
+    }
+
+    public function testCurrentEnv()
+    {
+        $this->envService->expects('saveCurrentEnv')->once();
+        $this->vaultMustBeCalled();
+
+        $this->artisan('vault:get --output=currentEnv')
+            ->assertExitCode(0);
     }
 
     public function testEmptyGet()

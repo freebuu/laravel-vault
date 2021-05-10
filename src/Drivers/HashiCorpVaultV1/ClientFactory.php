@@ -1,7 +1,7 @@
 <?php
 
 
-namespace YaSdelyal\LaravelVault\Drivers;
+namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
 
 
 use GuzzleHttp\Psr7\Uri;

@@ -7,9 +7,24 @@ use Dotenv\Dotenv;
 use Exception;
 use YaSdelyal\LaravelVault\Contracts\Variables;
 use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
+use Illuminate\Foundation\Application;
 
 class EnvFileService
 {
+    public const NEXT = 'next';
+    public const BAK  = 'backup';
+    private $app;
+    private $currentFile;
+    private $nextFile;
+    private $backupFile;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+        $this->currentFile = $this->getEnvFilePatch();
+        $this->nextFile = $this->getEnvFilePatch(self::NEXT);
+        $this->backupFile = $this->getEnvFilePatch(self::BAK);
+    }
 
     /**
      * @throws EnvFileException
@@ -25,29 +40,26 @@ class EnvFileService
      */
     public function saveNextEnv(Variables $variables): void
     {
-
-        $name = app()->environmentFile().'.next';
-        $patch = app()->environmentPath();
-        $nextFile = $patch.DIRECTORY_SEPARATOR.$name;
         $content = '';
         $vars = [];
         foreach ($variables->toArray() as $key => $value){
+            //TODO maybe move formatter in dedicated?
             $key = strtoupper($key);
             $vars[] = $key;
             $content .= strtoupper($key).'='.$value."\n";
         }
-        $this->checkOrFail($nextFile);
+        $this->checkOrFail($this->nextFile);
 
-        if(! file_put_contents($nextFile, $content)){
-            throw new EnvFileException('Cannot write to file ' . $nextFile);
+        if(! file_put_contents($this->nextFile, $content)){
+            throw new EnvFileException('Cannot write to file ' . $this->nextFile);
         }
         try{
-            $dotenv = Dotenv::create($patch, $name);
+            $dotenv = Dotenv::create($this->app->environmentPath(), $this->getEnvFileName(self::NEXT));
             $dotenv->load();
             $dotenv->required($vars);
         }catch (Exception $exception){
-            unlink($nextFile);
-            throw new EnvFileException("Dotenv file {$nextFile} not write correctly");
+            unlink($this->nextFile);
+            throw new EnvFileException("Dotenv file {$this->nextFile} not write correctly");
         }
     }
 
@@ -56,17 +68,12 @@ class EnvFileService
      */
     public function backupCurrentEnv()
     {
-        $name = app()->environmentFile();
-        $patch = app()->environmentPath();
-        $backupName = $name.'.backup';
-        $currentFile = $patch.DIRECTORY_SEPARATOR.$name;
-        $backupFile = $patch.DIRECTORY_SEPARATOR.$backupName;
-        if(! $this->isFile($currentFile)){
+        if(! $this->isFile($this->currentFile)){
             return;
         }
-        $this->checkOrFail($backupFile);
-        if(! copy($currentFile, $backupFile)){
-            throw new EnvFileException('Cannot backup current .env to  ' . $backupFile);
+        $this->checkOrFail($this->backupFile);
+        if(! copy($this->currentFile, $this->backupFile)){
+            throw new EnvFileException('Cannot backup current .env to  ' . $this->backupFile);
         }
     }
 
@@ -75,17 +82,12 @@ class EnvFileService
      */
     public function moveNextEnvToCurrent()
     {
-        $name = app()->environmentFile();
-        $patch = app()->environmentPath();
-        $nextName = $name.'.next';
-        $currentFile = $patch.DIRECTORY_SEPARATOR.$name;
-        $nextFile = $patch.DIRECTORY_SEPARATOR.$nextName;
-        if($this->isFile($nextFile)){
-            throw new EnvFileException('Next file not created ' . $patch);
+        if($this->isFile($this->nextFile)){
+            throw new EnvFileException('Next file not created ' . $this->nextFile);
         }
         $this->backupCurrentEnv();
-        if(! copy($nextFile, $currentFile)){
-            throw new EnvFileException('Cannot move next .env to  ' . $nextFile);
+        if(! copy($this->nextFile, $this->currentFile)){
+            throw new EnvFileException('Cannot move next .env to  ' . $this->currentFile);
         }
     }
 
@@ -108,6 +110,13 @@ class EnvFileService
         }
     }
 
+    private function getEnvFilePatch(string $postfix = null): string
+    {
+        return $this->app->environmentPath() . DIRECTORY_SEPARATOR . $this->getEnvFileName($postfix);
+    }
 
-
+    private function getEnvFileName(string $postfix = null): string
+    {
+        return $this->app->environmentFile() . '.' . $postfix;
+    }
 }

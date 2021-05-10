@@ -30,8 +30,8 @@ class LaravelVaultServiceProvider extends ServiceProvider
             return new LaravelVault($app);
         });
 
-        $this->app->singleton(EnvFileService::class, function (){
-            return new EnvFileService();
+        $this->app->singleton(EnvFileService::class, function ($app){
+            return new EnvFileService($app);
         });
 
         $this->app->alias(LaravelVault::class, 'vault');

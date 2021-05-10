@@ -119,4 +119,19 @@ class EnvFileService
     {
         return $this->app->environmentFile() . '.' . $postfix;
     }
+
+    /**
+     * @throws EnvFileException
+     */
+    public function rollback()
+    {
+        if($this->isFile($this->backupFile)){
+            throw new EnvFileException('Backup file not created ' . $this->backupFile);
+        }
+        //TODO backup validation
+        $this->checkOrFail($this->currentFile);
+        if(! copy($this->backupFile, $this->currentFile)){
+            throw new EnvFileException('Cannot copy backup to .env: ' . $this->currentFile);
+        }
+    }
 }

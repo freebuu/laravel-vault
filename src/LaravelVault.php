@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use InvalidArgumentException;
 use YaSdelyal\LaravelVault\Contracts\Driver;
 use YaSdelyal\LaravelVault\Contracts\Variables;
+use YaSdelyal\LaravelVault\Models\BasicVariables;
 
 /**
  * Class LaravelVault
@@ -39,10 +40,14 @@ class LaravelVault
         return $this->connections[$name] ?? $this->connections[$name] = $this->resolveDriver($config['driver'], $config);
     }
 
-    public function get(string $connection = null): ?Variables
+    public function get(string $connection = null): Variables
     {
-        $patches = $this->getVarPatches();
-        return $this->connection($connection)->patches($patches);
+        $driver = $this->connection($connection);
+        $variables = new BasicVariables([]);
+        foreach ($this->getVarPatches() as $patch){
+            $variables->merge($driver->patch($patch));
+        }
+        return $variables;
     }
 
 

@@ -43,7 +43,7 @@ You can override here ALL options from vault.php
 ```
 ### Use
 ```shell
-cat vault.json | tr -d '\n \t'  | php artisan vault:get --stdin
+base64 -w 0 vault.json | php artisan vault:get --stdin --b64
 ```
 
 If all OK (credentials is actual and have access to secret patches), you see merged values from all patches:

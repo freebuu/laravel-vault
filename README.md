@@ -1,42 +1,63 @@
-# PHP Laravel Vault
-A simple library for getting app config from remote (e.g. from HashiCorp Vault) while deploy.
+# PHP Laravel Vault [![Documentation Status](https://readthedocs.org/projects/php-laravel-vault/badge/?version=latest)](https://php-laravel-vault.readthedocs.io/en/latest/?badge=latest)
 
-## WARNING
-it's very beginning alpha version. It's not tested on real projects and not recommended for use.
+Get your .env from remote (HaspiCorp Vault) on deploy
 
-## Using
+> **Warning! This is very beginning alpha version without usable realise.**
+> **Not recommended for using now**
+
+## Quickstart
+### Install
 ```shell
-php artisan vault:get connection --stdin --b64 --output=console
+composer require yasdelyal/php-laravel-vault
+php artisan vendor:publish --tag=config --provider="YaSdelyal\LaravelVault\LaravelVaultServiceProvider"
+
+Copied File [/vendor/yasdelyal/php-laravel-vault/config/vault.php] To [/config/vault.php]
 ```
-Options:
-- connection - Specify the Vault connection (config.vault.connections). If not present - default connection will be used
-- --stdin - When present, command will be wait JSON config from stdin
-- --b64 - Work only with --stdin - when present, JSON config must be base64 encoded
-- --output -  Where the vars will be output. Possible: console, nextEnv, currentEnv. If not present - console will be used
-    - console - print table in console
-    - nextEnv - save variables in .env.next file near with current .env
-    - currentEnv - backup current .env to .env.backup and save variables in .env
-    
-## How to use in CI
+### Configure
+Add patches from Vault and variables to secrets in vault.php
+```php 
+'vars' => [
+    'patches' => [
+        '/secret/database/{env}'
+    ],
+    'patch_variables' => [
+        'env' => 'production',
+    ],
+  ]
+```
 
-### Right way
+### Override credentials
+Make vault.json file with Vault options - structure MUST be same as vault.php
 
-- Make JSON configs with same structure as vault.php for all app envs (for develop, stage, prod, etc)
-    - Set the host, role, secret, maybe patch vars - all same as current config
-- Encode it with base64
-- Set as secret on your CI (e.g. Gitlab CI Variables)
-- When app is deployed, run
+You can override here ALL options from vault.php
+```json
+{
+  "connections": {
+    "vault": {
+      "host": "http://vault",
+      "role_id": "your_secret_id",
+      "secret_id": "your_secret_id"
+    }
+  }
+}
+```
+### Use
 ```shell
-php artisan vault:get --stdin --b64 --output=currentEnv <<< ${BASE64_ENCODED_CONFIG}
+cat vault.json | tr -d '\n \t'  | php artisan vault:get --stdin
 ```
-- ${BASE64_ENCODED_CONFIG} - variable name in CI Pipeline
-- With that, configs from CI and Laravel will be merged
 
-### Way two - not recommended
-
-- Put the variables from vault.php on the server vars (e.g. export VAULT_HOST='127.0.0.1)
-- On deploy, run
+If all OK (credentials is actual and have access to secret patches), you see merged values from all patches:
 ```shell
-php artisan vault:get
++---------+------------+
+| Key     | Value      |
++---------+------------+
+| secret1 | value1     |
+| secret2 | value2     |
++---------+------------+
 ```
+- For save this in .env - add option --output=currentEnv
+- For save this in .env.next - add option --output=nextEnv
+
+## Documentation
+Documentation WILL BE available here: https://php-laravel-vault.readthedocs.io/
 

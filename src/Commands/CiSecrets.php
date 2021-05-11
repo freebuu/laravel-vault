@@ -5,12 +5,12 @@ namespace YaSdelyal\LaravelVault\Commands;
 class CiSecrets extends AbstractSecretsCommand
 {
 
-    protected $signature = 'vault:ci 
-        {app : app patch variable} 
-        {env : env patch variable} 
-        {host : Vault host}
+    protected $signature = 'vault:ci
         {token : Vault token}
         {--connection : Set Vault connection, if not - default was used}
+        {--host : Vault host}
+        {--app : app patch variable}
+        {--env : env patch variable}
     ';
 
     protected $description = 'Shorthand command for using in CI - uses default connection';
@@ -23,20 +23,18 @@ class CiSecrets extends AbstractSecretsCommand
             $this->error('No connection or default connection was specified');
             return 1;
         }
-        $config = [
-            'vars' => [
-                'patch_variables' => [
-                    'app' => $this->argument('app'),
-                    'env' => $this->argument('env'),
-                ],
-            ],
-            'connections' => [
-                $connection => [
-                    'host' => $this->argument('host'),
-                    'token' => $this->argument('token'),
-                ]
-            ]
-        ];
+        $config = [];
+        $config['default_connection'] = $connection;
+        $config['connections'][$connection]['token'] = $this->argument('token');
+        if ($this->option('host')) {
+            $config['connections'][$connection]['host'] = $this->option('host');
+        }
+        if ($this->option('app')) {
+            $config['vars']['patch_variables']['app'] = $this->option('app');
+        }
+        if ($this->option('env')) {
+            $config['vars']['patch_variables']['env'] = $this->option('env');
+        }
         if (! $this->mergeConfig($config)) {
             return 1;
         }

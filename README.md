@@ -64,12 +64,12 @@ Here is a shorthand command special from CI
 - On runner, obtain a token [docs](https://learn.hashicorp.com/tutorials/vault/pattern-approle?in=vault/recommended-patterns)
 - Obtain .env with that token
 ```shell
-php artisan vault:ci my_project production http://vault s.JYVfe67632rRDtyf
+php artisan vault:ci s.JYVfe67632rRDtyf --app=my_project --env=production
 ```
-- my_project - App name, set the 'app' patch variable
-- production - App env, set the 'env' patch variable 
-- http://vault - Vault host
 - s.JYVfe67632rRDtyf - Vault one-time token
+- my_project - App name, set the 'app' patch variable. Optional.
+- production - App env, set the 'env' patch variable. Optional.
+
 
 ## Documentation
 Documentation WILL BE available here: https://php-laravel-vault.readthedocs.io/

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault;
 
 use YaSdelyal\LaravelVault\Contracts\Variables;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
 
 use Exception;

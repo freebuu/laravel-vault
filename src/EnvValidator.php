@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault;
 
 use Dotenv\Dotenv;

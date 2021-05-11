@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault\Commands;
 
 use Illuminate\Console\Command;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
 
 use GuzzleHttp\Psr7\Uri;
@@ -45,7 +44,7 @@ class ClientFactory
     public function create(string $host, string $port, array $config): Client
     {
         $client = new Client(
-            new Uri($host.':'.$port),
+            new Uri($host . ':' . $port),
             $this->client,
             $this->requestFactory,
             $this->streamFactory

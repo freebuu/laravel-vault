@@ -95,7 +95,7 @@ class LaravelVault
         $search = [];
         $replace = [];
         foreach ($vars as $key => $value) {
-            $search[] = '{'.$key.'}';
+            $search[] = '{' . $key . '}';
             $replace[] = $value;
         }
         return str_replace($search, $replace, $patch);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault\Commands;
 
 class CiSecrets extends AbstractSecretsCommand

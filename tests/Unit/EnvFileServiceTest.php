@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault\Tests\Unit;
 
 use Illuminate\Foundation\Testing\WithFaker;

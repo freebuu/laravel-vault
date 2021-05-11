@@ -48,7 +48,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "phpcs": "vendor/bin/phpcs src tests config --standard=phpcs.xml",
-        "phpcbf": "vendor/bin/phpcbf src tests config --standard=phpcs.xml"
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
+        "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml"
     }
 }

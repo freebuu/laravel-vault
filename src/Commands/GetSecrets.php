@@ -41,7 +41,7 @@ class GetSecrets extends AbstractSecretsCommand
         }
         $stdinConfig = json_decode($input, true);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            $this->error('Cannot parse JSON config from stdin: '. json_last_error_msg());
+            $this->error('Cannot parse JSON config from stdin: ' . json_last_error_msg());
             return false;
         }
         if (! $this->mergeConfig($stdinConfig)) {

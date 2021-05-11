@@ -1,6 +1,5 @@
 <?php
 
-
 namespace YaSdelyal\LaravelVault\Models;
 
 use JsonException;
@@ -67,7 +66,7 @@ class BasicVariables implements Variables
         $content = '';
         foreach ($this->data as $key => $value) {
             //TODO maybe formater? or move to service?
-            $content .= $key.'='.$value."\n";
+            $content .= $key . '=' . $value . "\n";
         }
         return $content;
     }

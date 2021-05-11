@@ -58,6 +58,19 @@ If all OK (credentials is actual and have access to secret patches), you see mer
 - For save this in .env - add option --output=currentEnv
 - For save this in .env.next - add option --output=nextEnv
 
+### Use in CI
+
+Here is a shorthand command special from CI
+- On runner, obtain a token [docs](https://learn.hashicorp.com/tutorials/vault/pattern-approle?in=vault/recommended-patterns)
+- Obtain .env with that token
+```shell
+php artisan vault:ci my_project production http://vault s.JYVfe67632rRDtyf
+```
+- my_project - App name, set the 'app' patch variable
+- production - App env, set the 'env' patch variable 
+- http://vault - Vault host
+- s.JYVfe67632rRDtyf - Vault one-time token
+
 ## Documentation
 Documentation WILL BE available here: https://php-laravel-vault.readthedocs.io/
 

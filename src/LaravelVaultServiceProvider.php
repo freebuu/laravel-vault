@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Illuminate\Support\ServiceProvider;
+use YaSdelyal\LaravelVault\Commands\CiSecrets;
 use YaSdelyal\LaravelVault\Commands\GetSecrets;
 use YaSdelyal\LaravelVault\Commands\MoveEnv;
 use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\ClientFactory;
@@ -46,13 +47,13 @@ class LaravelVaultServiceProvider extends ServiceProvider
 
         $this->registerCommands();
         $this->registerDriver();
-        $this->registerValidator();
     }
 
     private function registerCommands()
     {
         $this->commands([
             GetSecrets::class,
+            CiSecrets::class,
             MoveEnv::class,
         ]);
     }
@@ -68,10 +69,5 @@ class LaravelVaultServiceProvider extends ServiceProvider
             $client = $factory->create($config['host'], $config['port'], $config);
             return new HashiCorpVault($client);
         });
-    }
-
-    public function registerValidator()
-    {
-
     }
 }

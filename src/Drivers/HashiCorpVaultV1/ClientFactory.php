@@ -64,10 +64,11 @@ class ClientFactory
     public function createAuthenticationStrategy(array $config): AuthenticationStrategy
     {
         //TODO AbstractPathAuthenticationStrategy
-        if(isset($config['role_id']) and ($config['secret_id'])){
-            return new AppRoleAuthenticationStrategy($config['role_id'], $config['secret_id'], $config['role_name'] ?? 'approle');
-        }elseif (isset($config['token'])){
+        //TODO authStrategy param in config
+        if(isset($config['token'])){
             return new TokenAuthenticationStrategy($config['token']);
+        }elseif (isset($config['role_id']) and ($config['secret_id'])){
+            return new AppRoleAuthenticationStrategy($config['role_id'], $config['secret_id'], $config['role_name'] ?? 'approle');
         }else{
             throw new DriveException('No supported AuthenticationStrategy');
         }

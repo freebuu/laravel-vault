@@ -1,5 +1,6 @@
 <?php
 
+namespace YaSdelyal\LaravelVault\Tests\Unit\Commands;
 
 use YaSdelyal\LaravelVault\EnvFileService;
 use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
@@ -40,5 +41,4 @@ class MoveEnvTest extends TestCase
             ->expectsOutput($message)
             ->assertExitCode(1);
     }
-
 }

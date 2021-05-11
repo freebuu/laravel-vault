@@ -35,8 +35,8 @@ class EnvFileServiceTest extends TestCase
             $this->service->getNextFile(),
             $this->service->getBackupFile(),
         ];
-        foreach ($stubs as $stub){
-            if(is_file($stub)){
+        foreach ($stubs as $stub) {
+            if (is_file($stub)) {
                 unlink($stub);
             }
         }
@@ -72,5 +72,4 @@ class EnvFileServiceTest extends TestCase
         $contents = file_get_contents($patch);
         $this->assertSame($this->vars->toEnv(), $contents);
     }
-
 }

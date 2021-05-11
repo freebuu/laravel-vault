@@ -35,5 +35,4 @@ class LaravelVaultTest extends TestCase
         $this->assertSame("/secret/{$app}/{$env}", $patches[0]);
         $this->assertSame("/secret/{$app}/common", $patches[1]);
     }
-
 }

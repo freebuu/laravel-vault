@@ -43,12 +43,12 @@ class EnvFileService
     public function saveNextEnv(Variables $variables): void
     {
         $this->checkOrFail($this->nextFile);
-        if(! file_put_contents($this->nextFile, $variables->toEnv())){
+        if (! file_put_contents($this->nextFile, $variables->toEnv())) {
             throw new EnvFileException('Cannot write to file ' . $this->nextFile);
         }
-        try{
+        try {
             $this->validator->validate($variables);
-        }catch (VaultException $exception){
+        } catch (VaultException $exception) {
             unlink($this->nextFile);
             throw $exception;
         }
@@ -59,11 +59,11 @@ class EnvFileService
      */
     public function backupCurrentEnv()
     {
-        if(! $this->isFile($this->currentFile)){
+        if (! $this->isFile($this->currentFile)) {
             return;
         }
         $this->checkOrFail($this->backupFile);
-        if(! copy($this->currentFile, $this->backupFile)){
+        if (! copy($this->currentFile, $this->backupFile)) {
             throw new EnvFileException('Cannot backup current .env to  ' . $this->backupFile);
         }
     }
@@ -73,11 +73,11 @@ class EnvFileService
      */
     public function moveNextEnvToCurrent()
     {
-        if(! $this->isFile($this->nextFile)){
+        if (! $this->isFile($this->nextFile)) {
             throw new EnvFileException('Next file not created ' . $this->nextFile);
         }
         $this->backupCurrentEnv();
-        if(! copy($this->nextFile, $this->currentFile)){
+        if (! copy($this->nextFile, $this->currentFile)) {
             throw new EnvFileException('Cannot move next .env to  ' . $this->currentFile);
         }
         unlink($this->nextFile);
@@ -94,10 +94,10 @@ class EnvFileService
      */
     private function checkOrFail(string $patch): void
     {
-        if(! $this->isFile($patch) and ! touch($patch)){
+        if (! $this->isFile($patch) and ! touch($patch)) {
             throw new EnvFileException('Cannot create ' . $patch);
         }
-        if(! is_writable($patch)){
+        if (! is_writable($patch)) {
             throw new EnvFileException('File is not writeable ' . $patch);
         }
     }
@@ -117,11 +117,11 @@ class EnvFileService
      */
     public function rollbackFromBackup()
     {
-        if(! $this->isFile($this->backupFile)){
+        if (! $this->isFile($this->backupFile)) {
             throw new EnvFileException('Backup file not created ' . $this->backupFile);
         }
         $this->checkOrFail($this->currentFile);
-        if(! copy($this->backupFile, $this->currentFile)){
+        if (! copy($this->backupFile, $this->currentFile)) {
             throw new EnvFileException('Cannot copy backup to .env: ' . $this->currentFile);
         }
     }

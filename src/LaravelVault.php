@@ -11,8 +11,8 @@ use YaSdelyal\LaravelVault\Models\BasicVariables;
 
 /**
  * Class LaravelVault
- * @package YaSdelyal\LaravelVault
  *
+ * @package YaSdelyal\LaravelVault
  */
 
 class LaravelVault
@@ -33,18 +33,19 @@ class LaravelVault
 
     public function connection(string $name = null): Driver
     {
-        if(! $name = $name ?? $this->getDefaultConnectionName()){
+        if (! $name = $name ?? $this->getDefaultConnectionName()) {
             throw new InvalidArgumentException('No connection or default connection was specified');
         }
         $config = $this->getConnectionConfig($name);
-        return $this->connections[$name] ?? $this->connections[$name] = $this->resolveDriver($config['driver'], $config);
+        return $this->connections[$name]
+            ?? $this->connections[$name] = $this->resolveDriver($config['driver'], $config);
     }
 
     public function get(string $connection = null): Variables
     {
         $driver = $this->connection($connection);
         $variables = new BasicVariables([]);
-        foreach ($this->getVarPatches() as $patch){
+        foreach ($this->getVarPatches() as $patch) {
             $variables->merge($driver->patch($patch));
         }
         return $variables;
@@ -53,7 +54,7 @@ class LaravelVault
 
     private function resolveDriver(string $name, array $config): Driver
     {
-        if(! isset($this->driverCreators[$name])){
+        if (! isset($this->driverCreators[$name])) {
             throw new InvalidArgumentException("Vault driver [{$name}] is not defined.");
         }
         return $this->driverCreators[$name]($this->app, $name, $config);
@@ -66,7 +67,7 @@ class LaravelVault
 
     private function getConnectionConfig(string $name): array
     {
-        if(! $config = $this->app['config']['vault.connections.' . $name] or ! is_array($config)){
+        if (! $config = $this->app['config']['vault.connections.' . $name] or ! is_array($config)) {
             throw new InvalidArgumentException("Vault connection [{$name}] is not defined.");
         }
         return $config;
@@ -82,7 +83,7 @@ class LaravelVault
         //TODO переделать нормально
         $patches = [];
         $config = $this->app['config']['vault.vars'];
-        foreach ($config['patches'] as $patch){
+        foreach ($config['patches'] as $patch) {
             $patches[] = $this->parsePatch($patch, $config['patch_variables']);
         }
         return $patches;
@@ -93,11 +94,10 @@ class LaravelVault
         //TODO переделать нормально
         $search = [];
         $replace = [];
-        foreach ($vars as $key => $value){
+        foreach ($vars as $key => $value) {
             $search[] = '{'.$key.'}';
             $replace[] = $value;
         }
         return str_replace($search, $replace, $patch);
     }
-
 }

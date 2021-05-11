@@ -3,7 +3,6 @@
 
 namespace YaSdelyal\LaravelVault\Commands;
 
-
 use Illuminate\Console\Command;
 use YaSdelyal\LaravelVault\EnvFileService;
 use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
@@ -19,10 +18,10 @@ class MoveEnv extends Command
     public function handle(EnvFileService $envFileService): int
     {
         try {
-            if($this->option('rollback')){
+            if ($this->option('rollback')) {
                 $envFileService->rollbackFromBackup();
                 $this->info('.env is rollback from backup');
-            }else{
+            } else {
                 $envFileService->moveNextEnvToCurrent();
                 $this->info('.env.next moved into current');
             }

@@ -3,7 +3,6 @@
 
 namespace YaSdelyal\LaravelVault\Tests\Unit;
 
-
 use Illuminate\Foundation\Testing\WithFaker;
 use YaSdelyal\LaravelVault\EnvValidator;
 use YaSdelyal\LaravelVault\Exceptions\EnvValidationException;
@@ -34,7 +33,7 @@ class EnvValidatorTest extends TestCase
     public function tearDown(): void
     {
         parent::tearDown();
-        if(is_file($this->exampleFile)){
+        if (is_file($this->exampleFile)) {
             unlink($this->exampleFile);
         }
     }

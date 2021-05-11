@@ -19,12 +19,12 @@ class GetSecrets extends AbstractSecretsCommand
         if ($this->option('stdin')) {
             $input = $this->secret('Pass config in JSON');
             $b64   = (bool) $this->option('b64');
-            if(! $this->setConfigFromStdin($input, $b64)){
+            if (! $this->setConfigFromStdin($input, $b64)) {
                 return 1;
             }
         }
 
-        if(! $this->makeOutput($this->option('output'))){
+        if (! $this->makeOutput($this->option('output'))) {
             return 1;
         }
         return 0;
@@ -32,9 +32,9 @@ class GetSecrets extends AbstractSecretsCommand
 
     private function setConfigFromStdin(string $input, bool $b64 = false): bool
     {
-        if($b64){
+        if ($b64) {
             $input = base64_decode($input, true);
-            if(!is_string($input)){
+            if (!is_string($input)) {
                 $this->error('Cannot parse base64 config from stdin');
                 return false;
             }
@@ -44,7 +44,7 @@ class GetSecrets extends AbstractSecretsCommand
             $this->error('Cannot parse JSON config from stdin: '. json_last_error_msg());
             return false;
         }
-        if(! $this->mergeConfig($stdinConfig)){
+        if (! $this->mergeConfig($stdinConfig)) {
             return false;
         }
         return true;

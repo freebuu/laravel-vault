@@ -1,5 +1,6 @@
 <?php
 
+namespace YaSdelyal\LaravelVault\Tests\Unit\Commands;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use YaSdelyal\LaravelVault\EnvFileService;
@@ -127,8 +128,13 @@ class GetSecretsTest extends TestCase
     public function assertConfigChanged(array $newConfig)
     {
         $currentConfig = $this->app['config']['vault'];
-        $this->assertSame($currentConfig['vars']['patch_variables']['app'], $newConfig['vars']['patch_variables']['app']);
-        $this->assertNotSame($this->startedConfig['vars']['patch_variables']['app'], $newConfig['vars']['patch_variables']['app']);
+        $this->assertSame(
+            $currentConfig['vars']['patch_variables']['app'],
+            $newConfig['vars']['patch_variables']['app']
+        );
+        $this->assertNotSame(
+            $this->startedConfig['vars']['patch_variables']['app'],
+            $newConfig['vars']['patch_variables']['app']
+        );
     }
-
 }

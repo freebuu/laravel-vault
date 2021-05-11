@@ -2,6 +2,7 @@
 
 
 namespace YaSdelyal\LaravelVault\Models;
+
 use JsonException;
 use YaSdelyal\LaravelVault\Contracts\Variables;
 
@@ -64,7 +65,7 @@ class BasicVariables implements Variables
     public function toEnv(): string
     {
         $content = '';
-        foreach ($this->data as $key => $value){
+        foreach ($this->data as $key => $value) {
             //TODO maybe formater? or move to service?
             $content .= $key.'='.$value."\n";
         }

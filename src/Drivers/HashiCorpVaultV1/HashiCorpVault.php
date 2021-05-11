@@ -3,7 +3,6 @@
 
 namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
 
-
 use Exception;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -24,7 +23,7 @@ class HashiCorpVault implements Driver
     }
 
     /**
-     * @param string $patch
+     * @param  string $patch
      * @return Variables
      * @throws DriveException
      */
@@ -44,14 +43,14 @@ class HashiCorpVault implements Driver
      */
     private function authOrFail(): void
     {
-        if(! $this->isAuthenticated){
+        if (! $this->isAuthenticated) {
             try {
                 $this->isAuthenticated = $this->client->authenticate();
             } catch (InvalidArgumentException | ClientExceptionInterface | Exception $e) {
                 throw new DriveException('Cannot authenticate: ' . $e->getMessage());
             }
         }
-        if(! $this->isAuthenticated){
+        if (! $this->isAuthenticated) {
             throw new DriveException('Cannot authenticate');
         }
     }

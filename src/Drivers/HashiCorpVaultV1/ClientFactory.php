@@ -3,7 +3,6 @@
 
 namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
 
-
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -33,8 +32,7 @@ class ClientFactory
         ClientInterface $client,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory
-    )
-    {
+    ) {
         $this->client = $client;
         $this->requestFactory = $requestFactory;
         $this->streamFactory = $streamFactory;
@@ -65,13 +63,16 @@ class ClientFactory
     {
         //TODO AbstractPathAuthenticationStrategy
         //TODO authStrategy param in config
-        if(isset($config['token'])){
+        if (isset($config['token'])) {
             return new TokenAuthenticationStrategy($config['token']);
-        }elseif (isset($config['role_id']) and ($config['secret_id'])){
-            return new AppRoleAuthenticationStrategy($config['role_id'], $config['secret_id'], $config['role_name'] ?? 'approle');
-        }else{
+        } elseif (isset($config['role_id']) and ($config['secret_id'])) {
+            return new AppRoleAuthenticationStrategy(
+                $config['role_id'],
+                $config['secret_id'],
+                $config['role_name'] ?? 'approle'
+            );
+        } else {
             throw new DriveException('No supported AuthenticationStrategy');
         }
     }
-
 }

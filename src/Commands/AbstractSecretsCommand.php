@@ -3,7 +3,6 @@
 
 namespace YaSdelyal\LaravelVault\Commands;
 
-
 use Illuminate\Console\Command;
 use YaSdelyal\LaravelVault\Contracts\Variables;
 use YaSdelyal\LaravelVault\EnvFileService;
@@ -12,9 +11,13 @@ use YaSdelyal\LaravelVault\LaravelVault;
 
 abstract class AbstractSecretsCommand extends Command
 {
-    /** @var LaravelVault */
+    /**
+     * @var LaravelVault
+     */
     protected $vault;
-    /** @var EnvFileService */
+    /**
+     * @var EnvFileService
+     */
     protected $envFileService;
 
     public function __construct()
@@ -28,7 +31,7 @@ abstract class AbstractSecretsCommand extends Command
     {
         $currentConfig = config('vault');
         $config = array_replace_recursive($currentConfig, $config);
-        if(! $config){
+        if (! $config) {
             $this->error('Cannot merge config');
             return false;
         }
@@ -37,13 +40,13 @@ abstract class AbstractSecretsCommand extends Command
     }
 
 
-    protected function makeOutput( string $format): bool
+    protected function makeOutput(string $format): bool
     {
-        if(! $vars = $this->getVars()){
+        if (! $vars = $this->getVars()) {
             return false;
         }
         $method = $format . 'Format';
-        if(! method_exists($this, $method)){
+        if (! method_exists($this, $method)) {
             $this->error('Unsupported output format' . $format);
             return false;
         }
@@ -53,7 +56,7 @@ abstract class AbstractSecretsCommand extends Command
     private function consoleFormat(Variables $variables): bool
     {
         $formatted = [];
-        foreach ($variables->toArray() as $key => $value){
+        foreach ($variables->toArray() as $key => $value) {
             $formatted[] = [
                 'key' => $key,
                 'value' => $value
@@ -90,7 +93,7 @@ abstract class AbstractSecretsCommand extends Command
     public function getVars(string $connection = null): ?Variables
     {
         $vars = $this->vault->get($connection);
-        if($vars->isEmpty()){
+        if ($vars->isEmpty()) {
             $this->error('Vars is empty, possible errors');
             return null;
         }

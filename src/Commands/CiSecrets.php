@@ -3,7 +3,6 @@
 
 namespace YaSdelyal\LaravelVault\Commands;
 
-
 class CiSecrets extends AbstractSecretsCommand
 {
 
@@ -21,7 +20,7 @@ class CiSecrets extends AbstractSecretsCommand
     {
         //собираем конфиг
         $connection = $this->argument('connection') ?? config('vault.default_connection');
-        if(! $connection){
+        if (! $connection) {
             $this->error('No connection or default connection was specified');
             return 1;
         }
@@ -39,14 +38,13 @@ class CiSecrets extends AbstractSecretsCommand
                 ]
             ]
         ];
-        if(! $this->mergeConfig($config)){
+        if (! $this->mergeConfig($config)) {
             return 1;
         }
 
-        if(! $this->makeOutput('currentEnv')){
+        if (! $this->makeOutput('currentEnv')) {
             return 1;
         }
         return 0;
     }
-
 }

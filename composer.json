@@ -23,7 +23,8 @@
     "require-dev": {
         "orchestra/testbench": "^4.0",
         "mockery/mockery": "^1.0",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0",
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "autoload": {
         "psr-4": {
@@ -44,5 +45,10 @@
                 "Vault": "YaSdelyal\\LaravelVault\\Facades\\Vault"
             }
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "phpcs": "vendor/bin/phpcs src tests config --standard=phpcs.xml",
+        "phpcbf": "vendor/bin/phpcbf src tests config --standard=phpcs.xml"
     }
 }

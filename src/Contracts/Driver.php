@@ -1,6 +1,6 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Contracts;
+namespace FreeBuu\LaravelVault\Contracts;
 
 interface Driver
 {

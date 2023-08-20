@@ -1,6 +1,6 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Exceptions;
+namespace FreeBuu\LaravelVault\Exceptions;
 
 class EnvValidationException extends VaultException
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Tests\Unit\Commands;
+namespace FreeBuu\LaravelVault\Tests\Unit\Commands;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use YaSdelyal\LaravelVault\EnvFileService;
-use YaSdelyal\LaravelVault\LaravelVault;
-use YaSdelyal\LaravelVault\Models\BasicVariables;
-use YaSdelyal\LaravelVault\Tests\TestCase;
+use FreeBuu\LaravelVault\EnvFileService;
+use FreeBuu\LaravelVault\LaravelVault;
+use FreeBuu\LaravelVault\Models\BasicVariables;
+use FreeBuu\LaravelVault\Tests\TestCase;
 
 class GetSecretsTest extends TestCase
 {

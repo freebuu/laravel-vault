@@ -1,14 +1,14 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
+namespace FreeBuu\LaravelVault\Drivers\HashiCorpVaultV1;
 
 use Exception;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
-use YaSdelyal\LaravelVault\Exceptions\DriveException;
-use YaSdelyal\LaravelVault\Models\BasicVariables;
-use YaSdelyal\LaravelVault\Contracts\Driver;
-use YaSdelyal\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\Exceptions\DriveException;
+use FreeBuu\LaravelVault\Models\BasicVariables;
+use FreeBuu\LaravelVault\Contracts\Driver;
+use FreeBuu\LaravelVault\Contracts\Variables;
 use Vault\Client;
 
 class HashiCorpVault implements Driver

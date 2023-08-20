@@ -1,18 +1,18 @@
 <?php
 
-namespace YaSdelyal\LaravelVault;
+namespace FreeBuu\LaravelVault;
 
 use Closure;
 use Illuminate\Foundation\Application;
 use InvalidArgumentException;
-use YaSdelyal\LaravelVault\Contracts\Driver;
-use YaSdelyal\LaravelVault\Contracts\Variables;
-use YaSdelyal\LaravelVault\Models\BasicVariables;
+use FreeBuu\LaravelVault\Contracts\Driver;
+use FreeBuu\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\Models\BasicVariables;
 
 /**
  * Class LaravelVault
  *
- * @package YaSdelyal\LaravelVault
+ * @package FreeBuu\LaravelVault
  */
 
 class LaravelVault

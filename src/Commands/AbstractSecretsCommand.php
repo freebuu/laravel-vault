@@ -1,12 +1,12 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Commands;
+namespace FreeBuu\LaravelVault\Commands;
 
 use Illuminate\Console\Command;
-use YaSdelyal\LaravelVault\Contracts\Variables;
-use YaSdelyal\LaravelVault\EnvFileService;
-use YaSdelyal\LaravelVault\Exceptions\VaultException;
-use YaSdelyal\LaravelVault\LaravelVault;
+use FreeBuu\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\EnvFileService;
+use FreeBuu\LaravelVault\Exceptions\VaultException;
+use FreeBuu\LaravelVault\LaravelVault;
 
 abstract class AbstractSecretsCommand extends Command
 {

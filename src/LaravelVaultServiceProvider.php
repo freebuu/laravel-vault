@@ -1,17 +1,17 @@
 <?php
 
-namespace YaSdelyal\LaravelVault;
+namespace FreeBuu\LaravelVault;
 
 use GuzzleHttp\Client;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 use Illuminate\Support\ServiceProvider;
-use YaSdelyal\LaravelVault\Commands\CiSecrets;
-use YaSdelyal\LaravelVault\Commands\GetSecrets;
-use YaSdelyal\LaravelVault\Commands\MoveEnv;
-use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\ClientFactory;
-use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\HashiCorpVault;
-use YaSdelyal\LaravelVault\Facades\Vault;
+use FreeBuu\LaravelVault\Commands\CiSecrets;
+use FreeBuu\LaravelVault\Commands\GetSecrets;
+use FreeBuu\LaravelVault\Commands\MoveEnv;
+use FreeBuu\LaravelVault\Drivers\HashiCorpVaultV1\ClientFactory;
+use FreeBuu\LaravelVault\Drivers\HashiCorpVaultV1\HashiCorpVault;
+use FreeBuu\LaravelVault\Facades\Vault;
 
 class LaravelVaultServiceProvider extends ServiceProvider
 {

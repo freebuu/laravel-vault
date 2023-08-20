@@ -1,10 +1,10 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Tests\Unit\Commands;
+namespace FreeBuu\LaravelVault\Tests\Unit\Commands;
 
-use YaSdelyal\LaravelVault\EnvFileService;
-use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
-use YaSdelyal\LaravelVault\Tests\TestCase;
+use FreeBuu\LaravelVault\EnvFileService;
+use FreeBuu\LaravelVault\Exceptions\EnvFileException;
+use FreeBuu\LaravelVault\Tests\TestCase;
 
 class MoveEnvTest extends TestCase
 {

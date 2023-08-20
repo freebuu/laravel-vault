@@ -1,6 +1,6 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1;
+namespace FreeBuu\LaravelVault\Drivers\HashiCorpVaultV1;
 
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Client\ClientInterface;
@@ -10,7 +10,7 @@ use Vault\AuthenticationStrategies\AppRoleAuthenticationStrategy;
 use Vault\AuthenticationStrategies\AuthenticationStrategy;
 use Vault\AuthenticationStrategies\TokenAuthenticationStrategy;
 use Vault\Client;
-use YaSdelyal\LaravelVault\Exceptions\DriveException;
+use FreeBuu\LaravelVault\Exceptions\DriveException;
 
 class ClientFactory
 {

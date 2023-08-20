@@ -1,10 +1,10 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Tests\Unit;
+namespace FreeBuu\LaravelVault\Tests\Unit;
 
-use YaSdelyal\LaravelVault\Drivers\HashiCorpVaultV1\HashiCorpVault;
-use YaSdelyal\LaravelVault\LaravelVault;
-use YaSdelyal\LaravelVault\Tests\TestCase;
+use FreeBuu\LaravelVault\Drivers\HashiCorpVaultV1\HashiCorpVault;
+use FreeBuu\LaravelVault\LaravelVault;
+use FreeBuu\LaravelVault\Tests\TestCase;
 
 class LaravelVaultTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Commands;
+namespace FreeBuu\LaravelVault\Commands;
 
 class CiSecrets extends AbstractSecretsCommand
 {

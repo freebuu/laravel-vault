@@ -1,13 +1,13 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Commands;
+namespace FreeBuu\LaravelVault\Commands;
 
 class GetSecrets extends AbstractSecretsCommand
 {
 
-    protected $signature = 'vault:get 
+    protected $signature = 'vault:get
         {connection? : Set Vault connection from config}
-        {--stdin : When present, command will be wait JSON config from stdin} 
+        {--stdin : When present, command will be wait JSON config from stdin}
         {--b64 : Work only with --stdin - when present, config must be base64 encoded}
         {--output=console : Where the vars will be output. Possible: console, nextEnv, currentEnv}
     ';

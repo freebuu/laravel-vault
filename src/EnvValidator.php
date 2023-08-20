@@ -1,10 +1,10 @@
 <?php
 
-namespace YaSdelyal\LaravelVault;
+namespace FreeBuu\LaravelVault;
 
 use Dotenv\Dotenv;
-use YaSdelyal\LaravelVault\Contracts\Variables;
-use YaSdelyal\LaravelVault\Exceptions\EnvValidationException;
+use FreeBuu\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\Exceptions\EnvValidationException;
 
 class EnvValidator
 {

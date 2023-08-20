@@ -1,12 +1,12 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Tests\Unit;
+namespace FreeBuu\LaravelVault\Tests\Unit;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use YaSdelyal\LaravelVault\EnvValidator;
-use YaSdelyal\LaravelVault\Exceptions\EnvValidationException;
-use YaSdelyal\LaravelVault\Models\BasicVariables;
-use YaSdelyal\LaravelVault\Tests\TestCase;
+use FreeBuu\LaravelVault\EnvValidator;
+use FreeBuu\LaravelVault\Exceptions\EnvValidationException;
+use FreeBuu\LaravelVault\Models\BasicVariables;
+use FreeBuu\LaravelVault\Tests\TestCase;
 
 class EnvValidatorTest extends TestCase
 {

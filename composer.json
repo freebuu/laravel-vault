@@ -1,5 +1,5 @@
 {
-    "name": "yasdelyal/php-laravel-vault",
+    "name": "freebuu/laravel-vault",
     "description": "Laravel package for HashiCorp Vault",
     "type": "library",
     "license": "MIT",
@@ -8,16 +8,17 @@
     ],
     "authors": [
         {
-            "name": "Maksim Mikhailov",
-            "email": "2618094@gmail.com"
+            "name": "Maksim",
+            "email": "2618094@gmail.com",
+            "role": "Maintainer"
         }
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
-        "illuminate/support": "^5.8|^6|^7|^8",
-        "illuminate/console": "^5.8|^6|^7|^8",
+        "php": "^7.4 || ^8.0",
+        "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10",
+        "illuminate/console": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10",
         "csharpru/vault-php": "^4.2",
-        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/guzzle": "^6.3 || ^7.2",
         "http-interop/http-factory-guzzle": "^1.0"
     },
     "require-dev": {
@@ -28,21 +29,21 @@
     },
     "autoload": {
         "psr-4": {
-            "YaSdelyal\\LaravelVault\\": "src/"
+            "FreeBuu\\LaravelVault\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "YaSdelyal\\LaravelVault\\Tests\\": "tests/"
+            "FreeBuu\\LaravelVault\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "YaSdelyal\\LaravelVault\\LaravelVaultServiceProvider"
+                "FreeBuu\\LaravelVault\\LaravelVaultServiceProvider"
             ],
             "aliases": {
-                "Vault": "YaSdelyal\\LaravelVault\\Facades\\Vault"
+                "Vault": "FreeBuu\\LaravelVault\\Facades\\Vault"
             }
         }
     },

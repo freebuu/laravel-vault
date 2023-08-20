@@ -1,9 +1,9 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Models;
+namespace FreeBuu\LaravelVault\Models;
 
 use JsonException;
-use YaSdelyal\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\Contracts\Variables;
 
 class BasicVariables implements Variables
 {

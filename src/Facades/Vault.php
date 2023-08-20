@@ -1,11 +1,11 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Facades;
+namespace FreeBuu\LaravelVault\Facades;
 
 use Closure;
 use Illuminate\Support\Facades\Facade;
-use YaSdelyal\LaravelVault\Contracts\Driver;
-use YaSdelyal\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\Contracts\Driver;
+use FreeBuu\LaravelVault\Contracts\Variables;
 
 /**
  * @method static Driver connection(string $name = null)

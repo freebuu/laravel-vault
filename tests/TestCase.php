@@ -1,13 +1,13 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Tests;
+namespace FreeBuu\LaravelVault\Tests;
 
-use YaSdelyal\LaravelVault\LaravelVaultServiceProvider;
+use FreeBuu\LaravelVault\LaravelVaultServiceProvider;
 
 /**
  * Class TestCase
  * @todo clean tmp folder after all tests
- * @package YaSdelyal\LaravelVault\Tests
+ * @package FreeBuu\LaravelVault\Tests
  */
 class TestCase extends \Orchestra\Testbench\TestCase
 {

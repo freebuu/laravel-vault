@@ -1,10 +1,10 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Commands;
+namespace FreeBuu\LaravelVault\Commands;
 
 use Illuminate\Console\Command;
-use YaSdelyal\LaravelVault\EnvFileService;
-use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
+use FreeBuu\LaravelVault\EnvFileService;
+use FreeBuu\LaravelVault\Exceptions\EnvFileException;
 
 class MoveEnv extends Command
 {

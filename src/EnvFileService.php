@@ -1,11 +1,11 @@
 <?php
 
-namespace YaSdelyal\LaravelVault;
+namespace FreeBuu\LaravelVault;
 
-use YaSdelyal\LaravelVault\Contracts\Variables;
-use YaSdelyal\LaravelVault\Exceptions\EnvFileException;
+use FreeBuu\LaravelVault\Contracts\Variables;
+use FreeBuu\LaravelVault\Exceptions\EnvFileException;
 use Illuminate\Foundation\Application;
-use YaSdelyal\LaravelVault\Exceptions\VaultException;
+use FreeBuu\LaravelVault\Exceptions\VaultException;
 
 class EnvFileService
 {

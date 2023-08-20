@@ -9,7 +9,7 @@ Get your .env from remote (HaspiCorp Vault) on deploy
 ### Install
 ```shell
 composer require yasdelyal/php-laravel-vault
-php artisan vendor:publish --tag=config --provider="YaSdelyal\LaravelVault\LaravelVaultServiceProvider"
+php artisan vendor:publish --tag=config --provider="FreeBuu\LaravelVault\LaravelVaultServiceProvider"
 
 Copied File [/vendor/yasdelyal/php-laravel-vault/config/vault.php] To [/config/vault.php]
 ```

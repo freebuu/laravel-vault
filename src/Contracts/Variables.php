@@ -1,6 +1,6 @@
 <?php
 
-namespace YaSdelyal\LaravelVault\Contracts;
+namespace FreeBuu\LaravelVault\Contracts;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;

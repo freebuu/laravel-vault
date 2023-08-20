@@ -1,4 +1,4 @@
-# PHP Laravel Vault [![Documentation Status](https://readthedocs.org/projects/php-laravel-vault/badge/?version=latest)](https://php-laravel-vault.readthedocs.io/en/latest/?badge=latest)
+# PHP Laravel Vault
 
 Get your .env from remote (HaspiCorp Vault) on deploy
 
@@ -8,10 +8,8 @@ Get your .env from remote (HaspiCorp Vault) on deploy
 ## Quickstart
 ### Install
 ```shell
-composer require yasdelyal/php-laravel-vault
+composer require freebuu/laravel-vault
 php artisan vendor:publish --tag=config --provider="FreeBuu\LaravelVault\LaravelVaultServiceProvider"
-
-Copied File [/vendor/yasdelyal/php-laravel-vault/config/vault.php] To [/config/vault.php]
 ```
 ### Configure
 Add patches from Vault and variables to secrets in vault.php
@@ -69,8 +67,3 @@ php artisan vault:ci s.JYVfe67632rRDtyf --app=my_project --env=production
 - s.JYVfe67632rRDtyf - Vault one-time token
 - my_project - App name, set the 'app' patch variable. Optional.
 - production - App env, set the 'env' patch variable. Optional.
-
-
-## Documentation
-Documentation WILL BE available here: https://php-laravel-vault.readthedocs.io/
-
